@@ -34,7 +34,7 @@ app.get('/childAdded/:chordId', function (req, res) {
 		if(error){
 			return console.log(error);
 		}
-		console.log('Message sent: ' + info.response);
+		res.send('Message sent: ' + info.response);
 	});
 });
 

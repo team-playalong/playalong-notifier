@@ -6,8 +6,6 @@ var config = require('config');
 const username = config.get('email.username');
 const password = config.get('email.password');
 
-// create reusable transporter object using the default SMTP transport
-var transporter = nodemailer.createTransport(`smtps://${username}%40gmail.com:${password}@smtp.gmail.com`);
 
 app.get('/', function (req, res) {
   res.send('Welcome to playalong notifier...');
@@ -17,7 +15,9 @@ app.get('/', function (req, res) {
 app.get('/childAdded/:chordId', function (req, res) {
   var chordId = req.params['chordId'];
 
-  console.log(`New Chord Added with Chord ID of ${chordId}`);
+  // create reusable transporter object using the default SMTP transport
+  var transporter = nodemailer.createTransport(`smtps://${username}%40gmail.com:${password}@smtp.gmail.com`);
+
 
   // setup e-mail data with unicode symbols
   var mailOptions = {
@@ -34,6 +34,7 @@ app.get('/childAdded/:chordId', function (req, res) {
 		if(error){
 			return console.log(error);
 		}
+    console.log(`New Chord Added with Chord ID of ${chordId}`);
 		res.send('Message sent: ' + info.response);
 	});
 });

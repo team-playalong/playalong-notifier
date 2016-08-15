@@ -2,10 +2,12 @@ const express = require('express');
 var app = express();
 var nodemailer = require('nodemailer');
 var config = require('config');
+const cors = require('cors')
 
 const username = config.get('email.username');
 const password = config.get('email.password');
 
+app.use(cors());
 
 app.get('/', function (req, res) {
   res.send('Welcome to playalong notifier...');

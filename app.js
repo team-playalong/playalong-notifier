@@ -7,7 +7,7 @@ const cors = require('cors')
 const username = config.get('email.username');
 const password = config.get('email.password');
 
-app.use(cors());
+app.options('*', cors()); // include before other routes
 
 app.get('/', function (req, res) {
   res.send('Welcome to playalong notifier...');

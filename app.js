@@ -4,11 +4,10 @@ var nodemailer = require('nodemailer');
 var config = require('config');
 const cors = require('cors')
 
-const username = config.get('email.username');
-const password = config.get('email.password');
+const username = "atardadi";
+const password = "Popopo12!@";
 
-app.options('*', cors()); // include before other routes
-
+app.options('*', cors()); // include before other routesau
 app.get('/', function (req, res) {
   res.send('Welcome to playalong notifier...');
 });

@@ -1,13 +1,13 @@
+// https://www.npmjs.com/package/mailgun-js
+const apiKey = 'key-04b36a4427313663805d22cbdfa89691';
+var domain = 'playalong.io';
+var mailgun = require('mailgun-js')({apiKey, domain});
+
+
 const express = require('express');
 var app = express();
-var nodemailer = require('nodemailer');
 var config = require('config');
-const cors = require('cors')
 
-const username = "atardadi";
-const password = "Popopo12!@";
-
-app.options('*', cors()); // include before other routesau
 app.get('/', function (req, res) {
   res.send('Welcome to playalong notifier...');
 });
@@ -16,28 +16,19 @@ app.get('/', function (req, res) {
 app.get('/childAdded/:chordId', function (req, res) {
   var chordId = req.params['chordId'];
 
-  // create reusable transporter object using the default SMTP transport
-  var transporter = nodemailer.createTransport(`smtps://${username}%40gmail.com:${password}@smtp.gmail.com`);
-
-
-  // setup e-mail data with unicode symbols
-  var mailOptions = {
-    from: '"Dadi Atar" <atardadi@gmail.com>', // sender address
-    to: 'atardadi@gmail.com', // list of receivers (comma separated)
-    subject: 'New Chord Added', // Subject line
-    text: `New Chord Added with Chord ID of ${chordId}`, // plaintext body
-    // html: '<b>Hello world 🐴</b>' // html body
+  var data = {
+    from: 'Playalong Notifier <contact@playalong.io>',
+    to: 'contact@playalong.io',
+    subject: `Chord Added - ${chordId}`,
+    text: `https://playalong-prod.firebaseio.com/chords/${chordId}`,
   };
 
-
-	// send mail with defined transport object
-	transporter.sendMail(mailOptions, function(error, info){
-		if(error){
-			return console.log(error);
-		}
+  mailgun.messages().send(data, function (error, body) {
+    console.log(body);
+    res.send('Message sent!');
     console.log(`New Chord Added with Chord ID of ${chordId}`);
-		res.send('Message sent: ' + info.response);
-	});
+
+  });
 });
 
 const port = process.env.PORT || 3000;

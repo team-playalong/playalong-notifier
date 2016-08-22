@@ -7,6 +7,9 @@ var mailgun = require('mailgun-js')({apiKey, domain});
 const express = require('express');
 var app = express();
 var config = require('config');
+var cors = require('cors');
+
+app.use(cors());
 
 app.get('/', function (req, res) {
   res.send('Welcome to playalong notifier...');

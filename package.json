@@ -25,8 +25,7 @@
     "config": "^1.21.0",
     "cors": "^2.7.1",
     "express": "^4.14.0",
-    "mailgun-js": "^0.7.12",
-    "nodemailer": "^2.5.0"
+    "mailgun-js": "^0.7.12"
   },
   "devDependencies": {
     "nodemon": "^1.10.0",

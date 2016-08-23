@@ -1,40 +1,58 @@
-// https://www.npmjs.com/package/mailgun-js
-const apiKey = 'key-04b36a4427313663805d22cbdfa89691';
-var domain = 'playalong.io';
-var mailgun = require('mailgun-js')({apiKey, domain});
-
-
+const config = require('config');
 const express = require('express');
-var app = express();
-var config = require('config');
-var cors = require('cors');
+const cors = require('cors');
 
+// https://www.npmjs.com/package/mailgun-js
+const apiKey = config.get('mailgun.api');
+const domain = config.get('mailgun.domain');
+const mailgun = require('mailgun-js')({apiKey, domain});
+
+const app = express();
 app.use(cors());
 
 app.get('/', function (req, res) {
   res.send('Welcome to playalong notifier...');
 });
 
+app.get('/login/:uid/:displayName/:email', (req, res) => {
+  const uid = req.params['uid'];
+  const displayName = req.params['displayName'];
+  const email = req.params['email'];
 
-app.get('/childAdded/:chordId', function (req, res) {
-  var chordId = req.params['chordId'];
 
-  var data = {
+  const data = {
+    from: 'Playalong Notifier <contact@playalong.io>',
+    to: 'contact@playalong.io',
+    subject: `User Logged in - ${uid}`,
+    text: `${displayName} has logged in!. Email ${email}`,
+  };
+
+  mailgun.messages()
+  .send(data, (error, body) => {
+    console.log(body);
+    res.send('Message sent!');
+  });
+});
+
+app.get('/childAdded/:chordId', (req, res) => {
+  const chordId = req.params['chordId'];
+
+  const data = {
     from: 'Playalong Notifier <contact@playalong.io>',
     to: 'contact@playalong.io',
     subject: `Chord Added - ${chordId}`,
     text: `https://playalong-prod.firebaseio.com/chords/${chordId}`,
   };
 
-  mailgun.messages().send(data, function (error, body) {
+  mailgun.messages()
+  .send(data, (error, body) => {
     console.log(body);
     res.send('Message sent!');
     console.log(`New Chord Added with Chord ID of ${chordId}`);
-
   });
 });
 
 const port = process.env.PORT || 3000;
-app.listen(port, function () {
+app.listen(port, () => {
   console.log('Example app listening on port 3000!');
 });

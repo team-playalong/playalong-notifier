@@ -5,7 +5,7 @@ const cors = require('cors');
 // https://www.npmjs.com/package/mailgun-js
 const apiKey = config.get('mailgun.api');
 const domain = config.get('mailgun.domain');
-const mailgun = require('mailgun-js')({apiKey, domain});
+const mailgun = require('mailgun-js')({ apiKey, domain });
 
 const app = express();
 app.use(cors());
@@ -15,9 +15,9 @@ app.get('/', function (req, res) {
 });
 
 app.get('/login/:uid/:displayName/:email', (req, res) => {
-  const uid = req.params['uid'];
-  const displayName = req.params['displayName'];
-  const email = req.params['email'];
+  const uid = req.params.uid;
+  const displayName = req.params.displayName;
+  const email = req.params.email;
 
 
   const data = {
@@ -35,7 +35,7 @@ app.get('/login/:uid/:displayName/:email', (req, res) => {
 });
 
 app.get('/childAdded/:chordId', (req, res) => {
-  const chordId = req.params['chordId'];
+  const chordId = req.params.chordId;
 
   const data = {
     from: 'Playalong Notifier <contact@playalong.io>',

@@ -11,7 +11,7 @@
   "extends": "airbnb",
   "rules": {
     "indent": "off",
-    "no-var": "off",
+    "no-console": "off",
     "strict": "off",
     "padded-blocks": "off",
     "no-param-reassign": "off",
@@ -28,7 +28,7 @@
     "brace-style": "off",
     "max-len": "off",
     "no-trailing-spaces": "off",
-    "spaced-comment": "off", 
+    "spaced-comment": "off",
     "jsx-a11y/img-uses-alt": "off",
     "jsx-a11y/label-uses-for": "off",
     "jsx-a11y/mouse-events-map-to-key-events": "off",
@@ -36,6 +36,7 @@
     "jsx-a11y/redundant-alt": "off",
     "jsx-a11y/valid-aria-role": "off",
     "wrap-iife": "off",
-    "eol-last": "off"
+    "eol-last": "off",
+    "import/no-extraneous-dependencies": "off"
   }
 }

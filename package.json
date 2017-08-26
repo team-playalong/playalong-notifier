@@ -25,7 +25,7 @@
     "config": "^1.21.0",
     "cors": "^2.7.1",
     "express": "^4.14.0",
-    "mailgun-js": "^0.7.12"
+    "mailgun-js": "^0.11.3"
   },
   "devDependencies": {
     "eslint": "^3.4.0",
